@@ -1,0 +1,8 @@
+.person-info {
+  display: inline-block;
+  border: 1px solid blue;
+  margin: 5px;
+  padding: 5px;
+  width: 100%;
+  min-width: 400;
+}
