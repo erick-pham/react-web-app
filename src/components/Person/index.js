@@ -4,7 +4,7 @@ export default class Person extends Component {
   constructor(props) {
     super(props);
   }
-  // Use the render function to return JSX component
+
   render() {
     return (
       <div className='person-info'>
