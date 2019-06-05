@@ -6,7 +6,7 @@ class Sort extends Component {
     let { sortType, sortOrder } = this.props;
     if (sortType !== '' && sortOrder !== '') {
       return (
-        <span className="label label-success label-medium text-uppercase">
+        <span className="badge badge-success text-uppercase">
           {sortType} - {sortOrder}
         </span>
       )
@@ -38,7 +38,6 @@ class Sort extends Component {
             <Link to="#" role="button" className="text-uppercase">Level DESC</Link>
           </li>
         </ul>
-        <span className="label label-success label-medium">NAME - DESC</span>
         {this.renderSort()}
       </div >
     )
