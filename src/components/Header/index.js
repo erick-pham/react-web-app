@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './style.css';
-import LoginForm from '../Login/login';
-import SignUpForm from '../SignUp/signup';
-
 export default class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onClickLogin() {
     console.log('show modal login form');
   }
