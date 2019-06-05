@@ -14,9 +14,9 @@ export default class People extends Component {
       <div className="people">
         <div className='row'>
           {
-            this.state.people.map(element => {
+            this.state.people.map((element, i) => {
               return (
-                <div className='col-sm-6 col-md-6 col-lg-4 col-xl-2'>
+                <div key={i} className='col-sm-6 col-md-6 col-lg-4 col-xl-2'>
                   <Person person={element} />
                 </div>
               )
