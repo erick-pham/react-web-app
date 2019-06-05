@@ -258,18 +258,16 @@ class Product extends Component {
             >{(this.state.showAddForm) ? 'Close Item' : 'Add Item'}</button>
           </div>
         </div>
-        <div className="row marginB10">
-          <div className="col-md-offset-7 col-md-5">
-            <Form showAddForm={this.state.showAddForm}
-              arrayLevel={this.state.arrayLevel}
-              valueItem={this.state.valueItem}
-              levelItem={this.state.levelItem}
-              handleFormInputChange={this.handleFormInputChange}
-              handleFormSelectChange={this.handleFormSelectChange}
-              handleFormClickCancel={this.handleFormClickCancel}
-              handleFormClickSubmit={this.handleFormClickSubmit}
-            />
-          </div>
+        <div >
+          <Form showAddForm={this.state.showAddForm}
+            arrayLevel={this.state.arrayLevel}
+            valueItem={this.state.valueItem}
+            levelItem={this.state.levelItem}
+            handleFormInputChange={this.handleFormInputChange}
+            handleFormSelectChange={this.handleFormSelectChange}
+            handleFormClickCancel={this.handleFormClickCancel}
+            handleFormClickSubmit={this.handleFormClickSubmit}
+          />
         </div>
         <div className="panel panel-success">
           <div className="panel-heading">List Item</div>

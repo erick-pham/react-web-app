@@ -18,28 +18,36 @@ export default class Form extends Component {
   render() {
     if (this.props.showAddForm === false) return null;
     return (
-      <form className="form-inline">
-        <div className="form-group">
-          <input type="text"
-            className="form-control"
-            placeholder="Item Name"
-            value={this.props.valueItem}
-            onChange={(event) => this.props.handleFormInputChange(event.target.value)} />
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            {/* <label for="inputEmail4">Email</label> */}
+            <input type="text"
+              class="form-control"
+              placeholder="Item Name"
+              value={this.props.valueItem}
+              onChange={(event) => this.props.handleFormInputChange(event.target.value)} />
+          </div>
+          <div class="form-group col-md-2">
+            {/* <label for="inputPassword4">Password</label> */}
+            <select className="form-control"
+              value={this.props.levelItem}
+              onChange={(event) => this.props.handleFormSelectChange(event.target.value)}>
+              {this.renderLevel()}
+            </select>
+          </div>
+
+          <div class="col-auto">
+            <button type="button"
+              className="btn btn-success mb-2"
+              onClick={() => this.props.handleFormClickSubmit()}>Save</button>
+            <span> </span>
+            <button type="button"
+              className="btn btn-secondary mb-2"
+              onClick={() => this.props.handleFormClickCancel()}>Cancel</button>
+          </div>
         </div>
-        <div className="form-group">
-          <select className="form-control"
-            value={this.props.levelItem}
-            onChange={(event) => this.props.handleFormSelectChange(event.target.value)}>
-            {this.renderLevel()}
-          </select>
-        </div>
-        <button type="button"
-          className="btn btn-primary"
-          onClick={() => this.props.handleFormClickSubmit()}>Submit</button>
-        <button type="button"
-          className="btn btn-default"
-          onClick={() => this.props.handleFormClickCancel()}>Cancel</button>
-      </form>
+      </form >
     )
   }
 }
