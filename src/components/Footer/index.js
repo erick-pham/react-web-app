@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import './style.css';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "./style.css";
 
 export default class Footer extends Component {
   render() {
@@ -10,37 +11,76 @@ export default class Footer extends Component {
             <div className="col-xs-12 col-sm-4 col-md-4">
               <h5>Quick links</h5>
               <ul className="list-unstyled quick-links">
-
-                <li><a href=""><i className="fa fa-angle-double-right"></i>Get Started</a></li>
-                <li><a href=""><i className="fa fa-angle-double-right"></i>Videos</a></li>
+                <li>
+                  <Link to="#">
+                    <i className="fa fa-angle-double-right" />
+                    Get Started
+                  </Link>
+                </li>
+                <li>
+                  <Link to="#">
+                    <i className="fa fa-angle-double-right" />
+                    Videos
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="col-xs-12 col-sm-4 col-md-4">
               <h5>Quick links</h5>
               <ul className="list-unstyled quick-links">
-                <li><a href="javascript:void(0);"><i className="fa fa-angle-double-right"></i>Home</a></li>
-                <li><a href="javascript:void(0);"><i className="fa fa-angle-double-right"></i>About</a></li>
-
+                <li>
+                  <Link to="#">
+                    <i className="fa fa-angle-double-right" />
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="#">
+                    <i className="fa fa-angle-double-right" />
+                    About
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="col-xs-12 col-sm-4 col-md-4">
               <h5>Quick links</h5>
               <ul className="list-unstyled quick-links">
-                <li><a href="javascript:void(0);"><i className="fa fa-angle-double-right"></i>Get Started</a></li>
-                <li><a href="https://wwwe.sunlimetech.com" title="Design and developed by"><i className="fa fa-angle-double-right"></i>Imprint</a></li>
+                <li>
+                  <Link to="#">
+                    <i className="fa fa-angle-double-right" />
+                    Get Started
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="https://wwwe.sunlimetech.com"
+                    title="Design and developed by"
+                  >
+                    <i className="fa fa-angle-double-right" />
+                    Imprint
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
               <ul className="list-unstyled list-inline social text-center">
-                <li className="list-inline-item"><a href="javascript:void(0);"><i className="fa fa-google-plus"></i></a></li>
-                <li className="list-inline-item"><a href="javascript:void(0);" target="_blank"><i className="fa fa-envelope"></i></a></li>
+                <li className="list-inline-item">
+                  <Link to="#" title="Design and developed by">
+                    <i className="fa fa-google-plus" />
+                  </Link>
+                </li>
+                <li className="list-inline-item">
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-envelope" />
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
-        </div >
-      </section >
+        </div>
+      </section>
     );
   }
 }

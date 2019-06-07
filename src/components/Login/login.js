@@ -1,30 +1,92 @@
-import React, { Component } from 'react';
-import './style.css';
-export default class Login extends Component {
-  //called before render().
-  //Dựa vào các props để tính toán và set lại state
-  componentWillMount() {
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import SweetAlert from "sweetalert-react";
+import "./style.css";
+import UserService from "../../service/user";
+import Constants from "../../common/constants";
+import LoginForm from "./loginForm";
 
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    const token = localStorage.getItem(Constants.AUTHORIZATION);
+    console.log('token', token);
+    this.state = { email: "bossdiemmaimai@gmail.com", password: "123456", logged: token ? true : false, showAlert: false };
+
+    this.handleClickLogin = this.handleClickLogin.bind(this);
+    this.handleChangeInputPasword = this.handleChangeInputPasword.bind(this);
+    this.handleChangeInputEmail = this.handleChangeInputEmail.bind(this);
   }
+
+  componentWillMount() {
+    //const a = sessionStorage.getItem("Authorization");
+    // const b = localStorage.getItem("Authorization");
+    // console.log(b);
+  }
+
+  componentDidMount() {
+  }
+
+  handleClickLogin = (event) => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    UserService.login(email, password)
+      .then(token => {
+        localStorage.setItem(Constants.AUTHORIZATION, token);
+      })
+      .catch(error => {
+        this.setState({
+          showAlert: true,
+          titleAlert: error
+        })
+      });
+  };
+
+  handleChangeInputPasword(event) {
+    this.setState({
+      password: event.target.value
+    });
+  }
+
+  handleChangeInputEmail(event) {
+    this.setState({
+      email: event.target.value.toLowerCase()
+    });
+  }
+
   render() {
+    console.log(this.state.logged);
+
+    if (this.state.logged) {
+      console.log('Redirect');
+      return <Redirect to='/' />
+    } else {
+      console.log('form');
+      return this.renderForm()
+    }
+  }
+
+  renderForm() {
     return (
-      <div className='form-login'>
-        <p className="hint-text">Sign in with your social media account</p>
-        <div className="form-group social-btn clearfix">
-          <a href="/" className="btn btn-primary pull-left"><i className="fa fa-facebook"></i> Facebook</a>
-          <a href="/" className="btn btn-info pull-right"><i className="fa fa-twitter"></i> Twitter</a>
-        </div>
-        <div className="or-seperator"><b>or</b></div>
-        <div className="form-group">
-          <input type="text" class="form-control" placeholder="Username" required="required" />
-        </div>
-        <div className="form-group">
-          <input type="password" className="form-control" placeholder="Password" required="required" />
-        </div>
-        <input type="submit" className="btn btn-primary btn-block" value="Login" />
-        <div className="form-footer">
-          <a href="/">Forgot Your password?</a>
-        </div>
+      <div className="card">
+        <article className="card-body">
+          <SweetAlert
+            show={this.state.showAlert}
+            title=""
+            text={this.state.titleAlert}
+            onOutsideClick={() => this.setState({ showAlert: false })}
+            onEscapeKey={() => this.setState({ showAlert: false })}
+            onConfirm={() => this.setState({ showAlert: false })}
+          />
+          <LoginForm
+            email={this.state.email}
+            password={this.state.password}
+            handleClickLogin={this.handleClickLogin}
+            handleChangeInputEmail={this.handleChangeInputEmail}
+            handleChangeInputPasword={this.handleChangeInputPasword}
+          />
+        </article>
       </div>
     );
   }
