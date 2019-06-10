@@ -1,43 +1,21 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
-import People from './components/People';
+import Footer from './components/Footer';
+import Product from './components/Product';
 
 function App() {
-  const people = [{
-    personNo: '1',
-    firstName: 'Bill',
-    lastName: 'Gates'
-  },
-  {
-    personNo: '2',
-    firstName: 'Donald',
-    lastName: 'Trump'
-  },
-  {
-    personNo: '3',
-    firstName: 'Erick',
-    lastName: 'Pham'
-  },
-  {
-    personNo: '3',
-    firstName: 'Erick',
-    lastName: 'Pham'
-  }, {
-    personNo: '3',
-    firstName: 'Erick',
-    lastName: 'Pham'
-  }, {
-    personNo: '3',
-    firstName: 'Erick',
-    lastName: 'Pham'
-  }];
-
   return (
-    <div className="container-fluid">
-      <Header />
-
-      <People people={people} />
+    <div id='main-wrapper'>
+      <header id='header-wrapper' className="content-wrapper">
+        <Header />
+      </header>
+      <section id='content-wrapper' className="content-wrapper">
+        <Product />
+      </section>
+      <footer id='footer-wrapper' className="footer-wrapper">
+        <Footer />
+      </footer>
     </div>
   );
 }
