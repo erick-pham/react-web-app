@@ -4,15 +4,12 @@ import "./../node_modules/sweetalert/dist/sweetalert.css";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import LoginForm from "./components/Login/login";
-import SignUpForm from "./components/SignUp/signup";
+import LoginForm from "./components/Login";
+import SignUpForm from "./components/SignUp";
+import UserProfile from "./components/User";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 
 class Routing extends Component {
-  componentWillMount() {
-    sessionStorage.setItem("key1", "value1");
-    localStorage.setItem("key2", null);
-  }
   render() {
     return (
       <BrowserRouter>
@@ -20,6 +17,7 @@ class Routing extends Component {
           <Route exact path="/" component={App} />
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignUpForm} />
+          <Route path="/profile" component={UserProfile} />
         </Switch>
       </BrowserRouter>
     );

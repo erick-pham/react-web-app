@@ -25,4 +25,16 @@ const login = (email, password) => {
   });
 };
 
-export default { login: login };
+const getUserProfile = async (token) => {
+  try {
+    const fields = jwt.decode(token);
+    return fields;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export default {
+  login: login,
+  getUserProfile: getUserProfile
+};

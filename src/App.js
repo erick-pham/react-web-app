@@ -7,15 +7,15 @@ import Product from './components/Product';
 function App() {
   return (
     <div id='main-wrapper'>
-      <div id='header-wrapper' className="content-wrapper">
+      <header id='header-wrapper' className="content-wrapper">
         <Header />
-      </div>
-      <div id='content-wrapper' className="content-wrapper">
+      </header>
+      <section id='content-wrapper' className="content-wrapper">
         <Product />
-      </div>
-      <div id='footer-wrapper' className="footer-wrapper">
+      </section>
+      <footer id='footer-wrapper' className="footer-wrapper">
         <Footer />
-      </div>
+      </footer>
     </div>
   );
 }
