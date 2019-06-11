@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './style.scss';
-import Constants from "../../common/constants";
+import Constants from '../../common/constants';
 export default class Header extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ export default class Header extends Component {
             </div>
           </li>
         </ul>
-      )
+      );
     } else {
       return (
         <ul className="nav navbar-nav navbar-right ml-auto">
@@ -42,7 +42,7 @@ export default class Header extends Component {
             <Link to="/signup" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">SignUp</Link>
           </li>
         </ul>
-      )
+      );
     }
   }
 

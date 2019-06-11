@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import "./../node_modules/sweetalert/dist/sweetalert.css";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import LoginForm from "./components/Login";
-import SignUpForm from "./components/SignUp";
-import UserProfile from "./components/User";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import './../node_modules/sweetalert/dist/sweetalert.css';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import LoginForm from './components/Login';
+import SignUpForm from './components/SignUp';
+import UserProfile from './components/User';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 class Routing extends Component {
   render() {
@@ -24,7 +24,7 @@ class Routing extends Component {
   }
 }
 
-ReactDOM.render(<Routing />, document.getElementById("root"));
+ReactDOM.render(<Routing />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

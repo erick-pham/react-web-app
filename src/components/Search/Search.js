@@ -13,7 +13,7 @@ class Search extends Component {
           <button className="btn btn-info" type="button" onClick={() => this.props.handleSearch('')}>Clear</button>
         </span>
       </div>
-    )
+    );
   }
 }
 

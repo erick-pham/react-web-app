@@ -26,18 +26,19 @@ export default class Login extends Component {
 
   async handleClickLogin(event) {
     try {
+      const a = 0;
       event.preventDefault();
       const { email, password } = this.state;
       const token = await UserService.login(email, password);
       localStorage.setItem(Constants.AUTHORIZATION, token);
-      this.setState({ logged: true })
+      this.setState({ logged: true });
     } catch (error) {
       this.setState({
         showAlert: true,
         titleAlert: error
-      })
+      });
     }
-  };
+  }
 
   handleChangeInputPasword(event) {
     this.setState({

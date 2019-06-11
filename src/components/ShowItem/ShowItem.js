@@ -12,7 +12,7 @@ class Item extends Component {
             <h4>No Item</h4>
           </td>
         </tr>
-      )
+      );
     }
     switch (item.level) {
       case 1:
@@ -45,7 +45,7 @@ class Item extends Component {
           <button type="button" className="btn btn-danger btn-sm" onClick={() => this.props.handleShowAlert(item)}>Delete</button>
         </td>
       </tr>
-    )
+    );
   }
 }
 

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import "./style.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './style.css';
 
 export default class LoginForm extends Component {
   render() {
@@ -11,10 +11,10 @@ export default class LoginForm extends Component {
           <div className="form-group social-btn clearfix">
             <a href="/" className="btn btn-primary pull-left">
               <i className="fa fa-facebook" /> Facebook
-      </a>
+            </a>
             <a href="/" className="btn btn-info pull-right">
               <i className="fa fa-twitter" /> Twitter
-      </a>
+            </a>
           </div>
           <div className="or-seperator">
             <b>or</b>
@@ -44,6 +44,6 @@ export default class LoginForm extends Component {
             <Link to="/">Forgot Your password?</Link>
           </div>
         </div>
-      </form >)
+      </form >);
   }
 }
