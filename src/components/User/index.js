@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import "./style.css";
-import Constant from "../../common/constants";
-import UserService from "../../service/user";
+import React, { Component } from 'react';
+import './style.css';
+import Constant from '../../common/constants';
+import UserService from '../../service/user';
 
 export default class User extends Component {
   constructor(props) {
@@ -13,18 +13,16 @@ export default class User extends Component {
     const token = localStorage.getItem(Constant.AUTHORIZATION);
     this.setState({ token: token });
     const profile = await UserService.getUserProfile(token);
-    console.log(profile);
 
     this.setState({
       avatar: profile.avatar,
       email: profile.email,
-      first_name: profile.first_name,
+      firstName: profile.first_name,
       gender: profile.gender,
       id: profile.id,
-      last_name: profile.last_name,
+      lastName: profile.last_name,
       username: profile.username
     });
-    console.log(this.state.avatar);
   }
   render() {
     return (
@@ -43,7 +41,7 @@ export default class User extends Component {
             <div className="col-md-6">
               <div className="profile-head">
                 <h5>
-                  {this.state.first_name}
+                  {this.state.firstName}
                 </h5>
                 <h6>
                   Web Developer and Designer
@@ -90,7 +88,7 @@ export default class User extends Component {
                       <label>Name</label>
                     </div>
                     <div className="col-md-6">
-                      <p>{this.state.first_name + ' ' + this.state.last_name}</p>
+                      <p>{this.state.firstName + ' ' + this.state.lastName}</p>
                     </div>
                   </div>
                   <div className="row">

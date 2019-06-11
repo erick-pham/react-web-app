@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import SweetAlert from "sweetalert-react";
-import "./style.css";
-import Title from "../Title/Title";
-import Search from "../Search/Search";
-import Sort from "../Sort/Sort";
-import Form from "../AddItem/AddItem";
-import Items from "../../mockdata/Items";
-import Item from "../ShowItem/ShowItem";
-import ItemEdit from "../ItemEdit/ItemEdit";
-import uuidv4 from "uuid/v4";
-import { orderBy as orderByld, filter as filterld } from "lodash";
+import React, { Component } from 'react';
+import SweetAlert from 'sweetalert-react';
+import './style.css';
+import Title from '../Title/Title';
+import Search from '../Search/Search';
+import Sort from '../Sort/Sort';
+import Form from '../AddItem/AddItem';
+import Items from '../../mockdata/Items';
+import Item from '../ShowItem/ShowItem';
+import ItemEdit from '../ItemEdit/ItemEdit';
+import uuidv4 from 'uuid/v4';
+import { orderBy as orderByld, filter as filterld } from 'lodash';
 
 class Product extends Component {
   constructor(props) {
@@ -31,20 +31,20 @@ class Product extends Component {
       listItems: Items,
       showAddForm: false,
       showAlert: false,
-      titleAlert: "",
-      idAlert: "",
+      titleAlert: '',
+      idAlert: '',
 
       indexEdit: 0,
-      idEdit: "",
-      nameEdit: "",
+      idEdit: '',
+      nameEdit: '',
       levelEdit: 0,
 
-      valueItem: "",
+      valueItem: '',
       levelItem: 0,
 
-      sortType: "",
-      sortOrder: "",
-      valueSearch: ""
+      sortType: '',
+      sortOrder: '',
+      valueSearch: ''
     };
   }
 
@@ -132,7 +132,7 @@ class Product extends Component {
 
   handleEditClickCancel = () => {
     this.setState({
-      idEdit: ""
+      idEdit: ''
     });
   };
 
@@ -160,7 +160,7 @@ class Product extends Component {
       }
     }
     this.setState({
-      idEdit: ""
+      idEdit: ''
     });
   };
 
@@ -184,14 +184,14 @@ class Product extends Component {
 
   handleFormClickCancel = () => {
     this.setState({
-      valueItem: "",
+      valueItem: '',
       levelItem: 0
     });
   };
 
   handleFormClickSubmit = () => {
     let { valueItem, levelItem } = this.state;
-    if (valueItem.trim() === 0) return false;
+    if (valueItem.trim() === 0) { return false; }
     let newItem = {
       id: uuidv4(),
       name: valueItem,
@@ -200,7 +200,7 @@ class Product extends Component {
     Items.push(newItem);
     this.setState({
       items: Items,
-      valueItem: "",
+      valueItem: '',
       levelItem: 0,
       showAddForm: false
     });
@@ -270,7 +270,7 @@ class Product extends Component {
               className="btn btn-info btn-block marginB10"
               onClick={this.handleShowAddForm}
             >
-              {this.state.showAddForm ? "Close Item" : "Add Item"}
+              {this.state.showAddForm ? 'Close Item' : 'Add Item'}
             </button>
           </div>
         </div>
@@ -291,14 +291,14 @@ class Product extends Component {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th style={{ width: "10%" }} className="text-center">
+                <th style={{ width: '10%' }} className="text-center">
                   #
                 </th>
                 <th>Name</th>
-                <th style={{ width: "15%" }} className="text-center">
+                <th style={{ width: '15%' }} className="text-center">
                   Level
                 </th>
-                <th style={{ width: "15%" }}>Action</th>
+                <th style={{ width: '15%' }}>Action</th>
               </tr>
             </thead>
             <tbody>{this.renderItem()}</tbody>

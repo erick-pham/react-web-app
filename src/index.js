@@ -7,7 +7,9 @@ import * as serviceWorker from './serviceWorker';
 import LoginForm from './components/Login';
 import SignUpForm from './components/SignUp';
 import UserProfile from './components/User';
+import AdminDashboard from './components/Admin';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { PrivateRoute } from './helpers/authentication';
 
 class Routing extends Component {
   render() {
@@ -17,7 +19,8 @@ class Routing extends Component {
           <Route exact path="/" component={App} />
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignUpForm} />
-          <Route path="/profile" component={UserProfile} />
+          <PrivateRoute path="/profile" component={UserProfile} />
+          <PrivateRoute path="/admin" component={AdminDashboard} />
         </Switch>
       </BrowserRouter>
     );

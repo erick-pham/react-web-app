@@ -6,11 +6,11 @@ class ItemEdit extends Component {
     return arrayLevel.map((level, index) => {
       switch (level) {
         case 0:
-          return <option key={index} value={level}>Lowl</option>
+          return <option key={index} value={level}>Lowl</option>;
         case 1:
-          return <option key={index} value={level}>Medium</option>
+          return <option key={index} value={level}>Medium</option>;
         default:
-          return <option key={index} value={level}>High</option>
+          return <option key={index} value={level}>High</option>;
       }
     });
   }
@@ -38,7 +38,7 @@ class ItemEdit extends Component {
           <button type="button" className="btn btn-success btn-sm" onClick={() => this.props.handleEditClickSubmit()}>Save</button>
         </td>
       </tr>
-    )
+    );
   }
 }
 

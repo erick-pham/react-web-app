@@ -1,37 +1,30 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import SweetAlert from "sweetalert-react";
-import "./style.css";
-import UserService from "../../service/user";
-import Constants from "../../common/constants";
-import LoginForm from "./loginForm";
+/* eslint-disable react/no-deprecated */
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import SweetAlert from 'sweetalert-react';
+import './style.css';
+import UserService from '../../service/user';
+import Constants from '../../common/constants';
+import LoginForm from './loginForm';
+import { isAuthenticated } from '../../helpers/authentication';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "bossdiemmaimai@gmail.com", password: "123456", logged: false, showAlert: false };
+    const { from } = props.location.state || { from: { pathname: '/' } };
+    console.log(from);
+    this.state = { email: 'bossdiemmaimai@gmail.com', password: '123456', showAlert: false, from: from };
     this.handleClickLogin = this.handleClickLogin.bind(this);
     this.handleChangeInputPasword = this.handleChangeInputPasword.bind(this);
     this.handleChangeInputEmail = this.handleChangeInputEmail.bind(this);
   }
 
-  componentWillMount() {
-    const token = localStorage.getItem(Constants.AUTHORIZATION);
-    this.setState({ logged: token ? true : false });
-  }
-
-  componentDidMount() {
-
-  }
-
   async handleClickLogin(event) {
     try {
-      const a = 0;
       event.preventDefault();
       const { email, password } = this.state;
       const token = await UserService.login(email, password);
       localStorage.setItem(Constants.AUTHORIZATION, token);
-      this.setState({ logged: true });
     } catch (error) {
       this.setState({
         showAlert: true,
@@ -53,10 +46,10 @@ export default class Login extends Component {
   }
 
   render() {
-    if (this.state.logged) {
-      return <Redirect to='/' />
+    if (isAuthenticated) {
+      return <Redirect to='/' />;
     } else {
-      return this.renderForm()
+      return this.renderForm();
     }
   }
 
