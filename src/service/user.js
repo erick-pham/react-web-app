@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const Users = require("../mockdata/Users");
-const _ = require("lodash");
-const Messages = require("../common/message");
+import jwt from 'jsonwebtoken';
+import Users from '../mockdata/Users';
+import _ from 'lodash';
+import Messages from '../common/message';
 
 const login = (email, password) => {
   return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ const getUserProfile = async (token) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 export default {
   login: login,
