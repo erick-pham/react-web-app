@@ -39,7 +39,7 @@ class Header extends Component {
             <Link to="/login" className="nav-link">Login</Link>
           </li>
           <li className="nav-item">
-            <Link to="/signup" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">SignUp</Link>
+            <Link to="/register" className="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">Register</Link>
           </li>
         </ul>
       );
