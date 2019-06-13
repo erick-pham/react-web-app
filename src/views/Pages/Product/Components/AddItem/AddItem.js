@@ -6,29 +6,29 @@ export default class Form extends Component {
     return arrayLevel.map((level, index) => {
       switch (level) {
         case 0:
-          return <option key={index} value={level}>Small</option>
+          return <option key={index} value={level}>Small</option>;
         case 1:
-          return <option key={index} value={level}>Medium</option>
+          return <option key={index} value={level}>Medium</option>;
         default:
-          return <option key={index} value={level}>High</option>
+          return <option key={index} value={level}>High</option>;
       }
     });
   }
 
   render() {
-    if (this.props.showAddForm === false) return null;
+    if (this.props.showAddForm === false) { return null; }
     return (
       <form>
-        <div class="form-row">
-          <div class="form-group col-md-4">
+        <div className="form-row">
+          <div className="form-group col-md-4">
             {/* <label for="inputEmail4">Email</label> */}
             <input type="text"
-              class="form-control"
+              className="form-control"
               placeholder="Item Name"
               value={this.props.valueItem}
               onChange={(event) => this.props.handleFormInputChange(event.target.value)} />
           </div>
-          <div class="form-group col-md-2">
+          <div className="form-group col-md-2">
             {/* <label for="inputPassword4">Password</label> */}
             <select className="form-control"
               value={this.props.levelItem}
@@ -37,7 +37,7 @@ export default class Form extends Component {
             </select>
           </div>
 
-          <div class="col-auto">
+          <div className="col-auto">
             <button type="button"
               className="btn btn-success mb-2"
               onClick={() => this.props.handleFormClickSubmit()}>Save</button>
@@ -48,6 +48,6 @@ export default class Form extends Component {
           </div>
         </div>
       </form >
-    )
+    );
   }
 }

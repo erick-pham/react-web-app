@@ -1,19 +1,17 @@
 /* eslint-disable react/no-deprecated */
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert-react';
 import './style.css';
-import UserService from '../../service/user';
-import Constants from '../../common/constants';
 import LoginForm from './loginForm';
-import { isAuthenticated } from '../../helpers/authentication';
+import { login } from './action';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     const { from } = props.location.state || { from: { pathname: '/' } };
-    console.log(from);
-    this.state = { email: 'bossdiemmaimai@gmail.com', password: '123456', showAlert: false, from: from };
+    this.state = { token: this.props.token, email: 'bossdiemmaimai@gmail.com', password: '123456', showAlert: false, from: from };
     this.handleClickLogin = this.handleClickLogin.bind(this);
     this.handleChangeInputPasword = this.handleChangeInputPasword.bind(this);
     this.handleChangeInputEmail = this.handleChangeInputEmail.bind(this);
@@ -23,8 +21,8 @@ export default class Login extends Component {
     try {
       event.preventDefault();
       const { email, password } = this.state;
-      const token = await UserService.login(email, password);
-      localStorage.setItem(Constants.AUTHORIZATION, token);
+      const token = await this.props.doLogin(email, password);
+      this.setState({ token });
     } catch (error) {
       this.setState({
         showAlert: true,
@@ -46,7 +44,7 @@ export default class Login extends Component {
   }
 
   render() {
-    if (isAuthenticated) {
+    if (this.props.token) {
       return <Redirect to='/' />;
     } else {
       return this.renderForm();
@@ -75,3 +73,22 @@ export default class Login extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    doLogin: (email, password) => {
+      return login({ dispatch, email, password });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

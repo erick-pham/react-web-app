@@ -1,34 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert-react';
 import './style.css';
-import Title from '../Title/Title';
-import Search from '../Search/Search';
-import Sort from '../Sort/Sort';
-import Form from '../AddItem/AddItem';
-import Items from '../../mockdata/Items';
-import Item from '../ShowItem/ShowItem';
-import ItemEdit from '../ItemEdit/ItemEdit';
+import Title from './Components/Title/Title';
+import Search from './Components/Search/Search';
+import Sort from './Components/Sort/Sort';
+import Form from './Components/AddItem/AddItem';
+import Item from './Components/ShowItem/ShowItem';
+import ItemEdit from './Components/ItemEdit/ItemEdit';
+import { updateProduct, addProduct, deleteProduct } from '../../../redux/action';
+import { getProducts } from '../../../api/product';
+
 import uuidv4 from 'uuid/v4';
 import { orderBy as orderByld, filter as filterld } from 'lodash';
 
 class Product extends Component {
   constructor(props) {
     super(props);
-    let arrayLevel = [];
-    if (Items.length > 0) {
-      for (let i = 0; i < Items.length; i++) {
-        if (arrayLevel.indexOf(Items[i].level) === -1) {
-          arrayLevel.push(Items[i].level);
-        }
-      }
-    }
-    arrayLevel.sort(function (a, b) {
-      return a - b;
-    });
     this.state = {
-      arrayLevel: arrayLevel,
-      items: Items,
-      listItems: Items,
+      items: [],
+      arrayLevel: [],
+      listItems: [],
       showAddForm: false,
       showAlert: false,
       titleAlert: '',
@@ -48,13 +41,34 @@ class Product extends Component {
     };
   }
 
-  componentWillMount() {
-    // console.log("componentWillMount da chay");
+  async componentDidMount() {
+    let { arrayLevel, items, listItems } = this.state;
+    items = await this.getProductList();
+    listItems = items;
+    if (items.length > 0) {
+      for (let i = 0; i < items.length; i++) {
+        if (arrayLevel.indexOf(items[i].level) === -1) {
+          arrayLevel.push(items[i].level);
+        }
+      }
+    }
+    arrayLevel.sort(function (a, b) {
+      return a - b;
+    });
+
+    this.setState({ items, arrayLevel, listItems });
   }
 
-  componentDidMount() {
-    // console.log("componentDidMount da chay");
-  }
+  getProductList = async () => {
+    try {
+      const response = await getProducts();
+      return response.data;
+    } catch (error) {
+      // this.props.showPopup(MODAL_TYPE.error, error.message, true);
+      console.log(new Error(error));
+      return [];
+    }
+  };
 
   renderItem = () => {
     let {
@@ -119,6 +133,7 @@ class Product extends Component {
       showAlert: false,
       items: items
     });
+    this.props.deleteProduct(items);
   };
 
   handleEditItem = (index, item) => {
@@ -189,21 +204,22 @@ class Product extends Component {
     });
   };
 
-  handleFormClickSubmit = () => {
-    let { valueItem, levelItem } = this.state;
+  handleFormClickSubmit = async () => {
+    let { items, valueItem, levelItem } = this.state;
     if (valueItem.trim() === 0) { return false; }
     let newItem = {
       id: uuidv4(),
       name: valueItem,
       level: +levelItem
     };
-    Items.push(newItem);
+    items.push(newItem);
     this.setState({
-      items: Items,
+      items: items,
       valueItem: '',
       levelItem: 0,
       showAddForm: false
     });
+    await this.props.addProduct(items);
   };
 
   handleSort = (sortType, sortOrder) => {
@@ -309,4 +325,34 @@ class Product extends Component {
   }
 }
 
-export default Product;
+Product.propTypes = {
+  addProduct: PropTypes.func,
+  updateProduct: PropTypes.func,
+  deleteProduct: PropTypes.func
+};
+
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    items: state.product.product
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: products => {
+      dispatch(addProduct(products));
+    },
+    updateProduct: products => {
+      dispatch(updateProduct(products));
+    },
+    deleteProduct: products => {
+      dispatch(deleteProduct(products));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Product);

@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
-import Constant from '../../common/constants';
-import UserService from '../../service/user';
+import Auth from '../../../api/auth';
 
-export default class User extends Component {
+class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   async componentDidMount() {
-    const token = localStorage.getItem(Constant.AUTHORIZATION);
-    this.setState({ token: token });
-    const profile = await UserService.getUserProfile(token);
-
+    const profile = await this.getUserProfile(this.props.token);
     this.setState({
       avatar: profile.avatar,
       email: profile.email,
@@ -24,6 +21,18 @@ export default class User extends Component {
       username: profile.username
     });
   }
+
+  getUserProfile = async (token) => {
+    try {
+      const response = await Auth.getUserProfile(token);
+      return response.data;
+    } catch (error) {
+      // this.props.showPopup(MODAL_TYPE.error, error.message, true);
+      console.log(new Error(error));
+      return [];
+    }
+  };
+
   render() {
     return (
       <div className="container emp-profile">
@@ -172,3 +181,9 @@ export default class User extends Component {
     );
   }
 }
+
+UserProfile.propTypes = {
+  token: PropTypes.string.isRequired
+};
+
+export default UserProfile;
