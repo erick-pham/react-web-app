@@ -6,7 +6,6 @@ import SweetAlert from 'sweetalert-react';
 import './style.css';
 import LoginForm from './loginForm';
 import { login } from './action';
-
 class Login extends Component {
   constructor(props) {
     super(props);

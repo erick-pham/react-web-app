@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 //import { connect } from 'react-redux';
 import Header from './Header';
 import Footer from './Footer';
-import { Product } from '../../views/Pages';
+import Product from '../components/Product/Product';
 
 export default class Home extends Component {
   render() {

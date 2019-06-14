@@ -2,6 +2,8 @@ export const API_REQUEST = 'API_REQUEST';
 export const API_SUCCESS = 'API_SUCCESS';
 export const API_FAILURE = 'API_FAILURE';
 
+export const APP_SHOW_POPUP = 'APP_SHOW_POPUP';
+
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const ADD_USER = 'ADD_USER';

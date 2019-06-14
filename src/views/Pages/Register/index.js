@@ -25,7 +25,7 @@ export default class Register extends Component {
     this.inputEmail.setAttribute('class', 'form-control is-invalid');
     this.inputPassword.setAttribute('class', 'form-control is-valid');
     this.inputRepeatPassword.setAttribute('class', 'form-control is-valid');
-    console.log(this.inputEmailGroup);
+    // console.log(this.inputEmailGroup);
   }
 
   handleChangeInputEmail() {

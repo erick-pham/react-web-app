@@ -3,8 +3,21 @@ import {
   UPDATE_USER,
   ADD_PRODUCT,
   UPDATE_PRODUCT,
-  DELETE_PRODUCT
+  DELETE_PRODUCT,
+  APP_SHOW_POPUP,
 } from './constant-actions';
+
+// POPUP
+export const showPopup = (type, message, status) => {
+  return {
+    type: APP_SHOW_POPUP,
+    payload: {
+      type,
+      message,
+      isOpen: status
+    }
+  };
+};
 
 // USER
 export const addUser = (payload) => ({

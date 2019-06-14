@@ -9,7 +9,7 @@ class Sort extends Component {
         <span className="badge badge-success text-uppercase">
           {sortType} - {sortOrder}
         </span>
-      )
+      );
     }
   }
 
@@ -40,7 +40,7 @@ class Sort extends Component {
         </ul>
         {this.renderSort()}
       </div >
-    )
+    );
   }
 }
 

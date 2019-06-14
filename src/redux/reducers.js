@@ -5,9 +5,53 @@ import {
   UPDATE_USER,
   ADD_PRODUCT,
   UPDATE_PRODUCT,
-  DELETE_PRODUCT
+  DELETE_PRODUCT,
+  APP_SHOW_POPUP,
+  API_REQUEST,
+  API_SUCCESS,
+  API_FAILURE
 } from './constant-actions';
 import Constant from '../common/constants';
+
+// fetch API
+export const apiReducer = (state = {}, action) => {
+  switch (action.type) {
+    case API_REQUEST:
+      console.log(action.type);
+      return {
+        ...state,
+        isLoading: true
+      };
+    case API_SUCCESS:
+      console.log(action.type);
+      return {
+        ...state,
+        isLoading: false
+      };
+    case API_FAILURE:
+      console.log(action.type);
+      console.log(action.payload);
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+const popupReducer = (state = {}, action) => {
+  switch (action.type) {
+    case APP_SHOW_POPUP:
+      return {
+        ...state,
+        popup: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
 const loadingReducer = (state = {}, action) => {
   const { type } = action;
@@ -79,6 +123,12 @@ const userReducer = (state = {}, action) => {
 
 const productReducer = (state = {}, action) => {
   switch (action.type) {
+    // case GET_PRODUCT_LIST:
+    //   state = {
+    //     ...state,
+    //     product: action.payload
+    //   };
+    //   break;
     case ADD_PRODUCT:
       state = {
         ...state,
@@ -109,7 +159,9 @@ const rootReducer = {
   errorReducer: errorReducer,
   auth: authReducer,
   user: userReducer,
-  product: productReducer
+  product: productReducer,
+  popup: popupReducer,
+  api: apiReducer
 };
 
 export default rootReducer;

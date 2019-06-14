@@ -9,11 +9,7 @@ import Sort from './Components/Sort/Sort';
 import Form from './Components/AddItem/AddItem';
 import Item from './Components/ShowItem/ShowItem';
 import ItemEdit from './Components/ItemEdit/ItemEdit';
-import Header from '../../Header';
-import Footer from '../../DefaultLayout/Footer';
-import { updateProduct, addProduct, deleteProduct } from '../../../redux/action';
-import { getProducts } from '../../../api/product';
-
+import { getProducts, updateProduct, addProduct, deleteProduct } from './action';
 import uuidv4 from 'uuid/v4';
 import { orderBy as orderByld, filter as filterld } from 'lodash';
 
@@ -63,11 +59,12 @@ class Product extends Component {
 
   getProductList = async () => {
     try {
-      const response = await getProducts();
+      //  const response = await getProductsAPI();
+      const response = await this.props.getProductList();
       return response.data;
     } catch (error) {
       // this.props.showPopup(MODAL_TYPE.error, error.message, true);
-      console.log(new Error(error));
+      // console.log(new Error(error));
       return [];
     }
   };
@@ -256,76 +253,72 @@ class Product extends Component {
   };
   render() {
     return (
-      <div className="">
-        <Header />
-        <div className="container">
-          <SweetAlert
-            show={this.state.showAlert}
-            title="Delete Item"
-            text={this.state.titleAlert}
-            showCancelButton
-            onOutsideClick={() => this.setState({ showAlert: false })}
-            onEscapeKey={() => this.setState({ showAlert: false })}
-            onCancel={() => this.setState({ showAlert: false })}
-            onConfirm={() => this.handleDeleteItem()}
-          />
-          <Title />
-          <div className="row">
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <Search
-                valueSearch={this.state.valueSearch}
-                handleSearch={this.handleSearch}
-              />
-            </div>
-            <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <Sort
-                sortType={this.state.sortType}
-                sortOrder={this.state.sortOrder}
-                handleSort={this.handleSort}
-              />
-            </div>
-            <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-              <button
-                type="button"
-                className="btn btn-info btn-block marginB10"
-                onClick={this.handleShowAddForm}
-              >
-                {this.state.showAddForm ? 'Close Item' : 'Add Item'}
-              </button>
-            </div>
-          </div>
-          <div>
-            <Form
-              showAddForm={this.state.showAddForm}
-              arrayLevel={this.state.arrayLevel}
-              valueItem={this.state.valueItem}
-              levelItem={this.state.levelItem}
-              handleFormInputChange={this.handleFormInputChange}
-              handleFormSelectChange={this.handleFormSelectChange}
-              handleFormClickCancel={this.handleFormClickCancel}
-              handleFormClickSubmit={this.handleFormClickSubmit}
+      <div className="container">
+        <SweetAlert
+          show={this.state.showAlert}
+          title="Delete Item"
+          text={this.state.titleAlert}
+          showCancelButton
+          onOutsideClick={() => this.setState({ showAlert: false })}
+          onEscapeKey={() => this.setState({ showAlert: false })}
+          onCancel={() => this.setState({ showAlert: false })}
+          onConfirm={() => this.handleDeleteItem()}
+        />
+        <Title />
+        <div className="row">
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <Search
+              valueSearch={this.state.valueSearch}
+              handleSearch={this.handleSearch}
             />
           </div>
-          <div className="panel panel-success">
-            <div className="panel-heading">List Item</div>
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th style={{ width: '10%' }} className="text-center">
-                    #
-                  </th>
-                  <th>Name</th>
-                  <th style={{ width: '15%' }} className="text-center">
-                    Level
-                  </th>
-                  <th style={{ width: '15%' }}>Action</th>
-                </tr>
-              </thead>
-              <tbody>{this.renderItem()}</tbody>
-            </table>
+          <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <Sort
+              sortType={this.state.sortType}
+              sortOrder={this.state.sortOrder}
+              handleSort={this.handleSort}
+            />
+          </div>
+          <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <button
+              type="button"
+              className="btn btn-info btn-block marginB10"
+              onClick={this.handleShowAddForm}
+            >
+              {this.state.showAddForm ? 'Close Item' : 'Add Item'}
+            </button>
           </div>
         </div>
-        <Footer />
+        <div>
+          <Form
+            showAddForm={this.state.showAddForm}
+            arrayLevel={this.state.arrayLevel}
+            valueItem={this.state.valueItem}
+            levelItem={this.state.levelItem}
+            handleFormInputChange={this.handleFormInputChange}
+            handleFormSelectChange={this.handleFormSelectChange}
+            handleFormClickCancel={this.handleFormClickCancel}
+            handleFormClickSubmit={this.handleFormClickSubmit}
+          />
+        </div>
+        <div className="panel panel-success">
+          <div className="panel-heading">List Item</div>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th style={{ width: '10%' }} className="text-center">
+                  #
+                </th>
+                <th>Name</th>
+                <th style={{ width: '15%' }} className="text-center">
+                  Level
+                </th>
+                <th style={{ width: '15%' }}>Action</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderItem()}</tbody>
+          </table>
+        </div>
       </div>
     );
   }
@@ -334,7 +327,8 @@ class Product extends Component {
 Product.propTypes = {
   addProduct: PropTypes.func,
   updateProduct: PropTypes.func,
-  deleteProduct: PropTypes.func
+  deleteProduct: PropTypes.func,
+  getProductList: PropTypes.func
 };
 
 function mapStateToProps(state) {
@@ -346,14 +340,17 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getProductList: () => {
+      return getProducts({ dispatch });
+    },
     addProduct: products => {
-      dispatch(addProduct(products));
+      return addProduct({ dispatch, products });
     },
     updateProduct: products => {
-      dispatch(updateProduct(products));
+      return updateProduct({ dispatch, products });
     },
     deleteProduct: products => {
-      dispatch(deleteProduct(products));
+      return deleteProduct({ dispatch, products });
     }
   };
 };
