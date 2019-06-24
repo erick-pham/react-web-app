@@ -9,6 +9,8 @@ import Sort from './Components/Sort/Sort';
 import Form from './Components/AddItem/AddItem';
 import Item from './Components/ShowItem/ShowItem';
 import ItemEdit from './Components/ItemEdit/ItemEdit';
+import withContainer from '../../Container';
+
 import { getProducts, updateProduct, addProduct, deleteProduct } from './action';
 import uuidv4 from 'uuid/v4';
 import { orderBy as orderByld, filter as filterld } from 'lodash';
@@ -17,6 +19,7 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       items: [],
       arrayLevel: [],
       listItems: [],
@@ -59,8 +62,9 @@ class Product extends Component {
 
   getProductList = async () => {
     try {
-      //  const response = await getProductsAPI();
+      // this.props.isLoading = true;
       const response = await this.props.getProductList();
+      //  this.props.isLoading = false;
       return response.data;
     } catch (error) {
       // this.props.showPopup(MODAL_TYPE.error, error.message, true);
@@ -338,6 +342,7 @@ function mapStateToProps(state) {
   };
 }
 
+const WrappedProduct = withContainer(Product);
 const mapDispatchToProps = dispatch => {
   return {
     getProductList: () => {
@@ -358,4 +363,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Product);
+)(WrappedProduct);

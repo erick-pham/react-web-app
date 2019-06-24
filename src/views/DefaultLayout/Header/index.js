@@ -28,6 +28,7 @@ class Header extends Component {
             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
               <Link to="#" className="dropdown-item" onClick={() => this.onClickLogout()}>Logout</Link>
               <Link className="dropdown-item" to="/profile">Profile</Link>
+              <Link className="dropdown-item" to="#">About</Link>
             </div>
           </li>
         </ul>
@@ -35,6 +36,9 @@ class Header extends Component {
     } else {
       return (
         <ul className="nav navbar-nav navbar-right ml-auto">
+          <li className="nav-item">
+            <Link to="" className="nav-link">About</Link>
+          </li>
           <li className="nav-item">
             <Link to="/login" className="nav-link">Login</Link>
           </li>

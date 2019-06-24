@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SweetAlert from 'sweetalert-react';
+import PropTypes from 'prop-types';
 import './style.css';
 import LoginForm from './loginForm';
 import { login } from './action';
 class Login extends Component {
   constructor(props) {
     super(props);
-    const { from } = props.location.state || { from: { pathname: '/' } };
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
     this.state = { token: this.props.token, email: 'bossdiemmaimai@gmail.com', password: '123456', showAlert: false, from: from };
     this.handleClickLogin = this.handleClickLogin.bind(this);
     this.handleChangeInputPasword = this.handleChangeInputPasword.bind(this);
@@ -72,6 +73,12 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  token: PropTypes.string,
+  location: PropTypes.object,
+  doLogin: PropTypes.func
+};
 
 function mapStateToProps(state) {
   return {
