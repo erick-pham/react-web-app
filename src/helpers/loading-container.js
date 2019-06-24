@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-const withContainer = WrappedComponent => class NewComponent extends Component {
+const withLoading = WrappedComponent => class NewComponent extends Component {
   render() {
-    console.log(this.props);
     return this.props.isLoading ? (<div>loading ...</div>) :
       (
         <WrappedComponent {...this.props} />
@@ -10,4 +9,4 @@ const withContainer = WrappedComponent => class NewComponent extends Component {
   }
 };
 
-export default withContainer;
+export default withLoading;

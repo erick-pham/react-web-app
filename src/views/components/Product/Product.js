@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert-react';
+import uuidv4 from 'uuid/v4';
+import { orderBy as orderByld, filter as filterld } from 'lodash';
+
 import './style.css';
 import Title from './Components/Title/Title';
 import Search from './Components/Search/Search';
 import Sort from './Components/Sort/Sort';
 import Form from './Components/AddItem/AddItem';
-import Item from './Components/ShowItem/ShowItem';
-import ItemEdit from './Components/ItemEdit/ItemEdit';
-import withContainer from '../../Container';
-
+import ListItem from './Components/ItemList';
+import withLoadingContainer from '../../../helpers/loading-container';
 import { getProducts, updateProduct, addProduct, deleteProduct } from './action';
-import uuidv4 from 'uuid/v4';
-import { orderBy as orderByld, filter as filterld } from 'lodash';
+
+const ListWithLoading = withLoadingContainer(ListItem);
 
 class Product extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Product extends Component {
   }
 
   async componentDidMount() {
+    this.setState({ isLoading: true });
     let { arrayLevel, items, listItems } = this.state;
     items = await this.getProductList();
     listItems = items;
@@ -57,60 +59,18 @@ class Product extends Component {
       return a - b;
     });
 
-    this.setState({ items, arrayLevel, listItems });
+    this.setState({ items, arrayLevel, listItems, isLoading: false });
   }
 
   getProductList = async () => {
     try {
-      // this.props.isLoading = true;
       const response = await this.props.getProductList();
-      //  this.props.isLoading = false;
       return response.data;
     } catch (error) {
       // this.props.showPopup(MODAL_TYPE.error, error.message, true);
       // console.log(new Error(error));
       return [];
     }
-  };
-
-  renderItem = () => {
-    let {
-      items,
-      idEdit,
-      indexEdit,
-      nameEdit,
-      levelEdit,
-      arrayLevel
-    } = this.state;
-    if (items.length === 0) {
-      return <Item item={0} />;
-    }
-    return items.map((item, index) => {
-      if (item.id === idEdit) {
-        return (
-          <ItemEdit
-            key={index}
-            indexEdit={indexEdit}
-            nameEdit={nameEdit}
-            levelEdit={levelEdit}
-            arrayLevel={arrayLevel}
-            handleEditClickCancel={this.handleEditClickCancel}
-            handleEditInputChange={this.handleEditInputChange}
-            handleEditSelectChange={this.handleEditSelectChange}
-            handleEditClickSubmit={this.handleEditClickSubmit}
-          />
-        );
-      }
-      return (
-        <Item
-          item={item}
-          index={index}
-          key={index}
-          handleShowAlert={this.handleShowAlert}
-          handleEditItem={this.handleEditItem}
-        />
-      );
-    });
   };
 
   handleShowAlert = item => {
@@ -139,35 +99,9 @@ class Product extends Component {
     this.props.deleteProduct(items);
   };
 
-  handleEditItem = (index, item) => {
-    this.setState({
-      indexEdit: index,
-      idEdit: item.id,
-      nameEdit: item.name,
-      levelEdit: item.level
-    });
-  };
 
-  handleEditClickCancel = () => {
-    this.setState({
-      idEdit: ''
-    });
-  };
-
-  handleEditInputChange = value => {
-    this.setState({
-      nameEdit: value
-    });
-  };
-
-  handleEditSelectChange = value => {
-    this.setState({
-      levelEdit: value
-    });
-  };
-
-  handleEditClickSubmit = () => {
-    let { items, idEdit, nameEdit, levelEdit } = this.state;
+  handleEditClickSubmit = (idEdit, nameEdit, levelEdit) => {
+    let { items } = this.state;
     if (items.length > 0) {
       for (let i = 0; i < items.length; i++) {
         if (items[i].id === idEdit) {
@@ -305,24 +239,16 @@ class Product extends Component {
             handleFormClickSubmit={this.handleFormClickSubmit}
           />
         </div>
-        <div className="panel panel-success">
-          <div className="panel-heading">List Item</div>
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th style={{ width: '10%' }} className="text-center">
-                  #
-                </th>
-                <th>Name</th>
-                <th style={{ width: '15%' }} className="text-center">
-                  Level
-                </th>
-                <th style={{ width: '15%' }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderItem()}</tbody>
-          </table>
-        </div>
+        <ListWithLoading isLoading={this.state.isLoading}
+          arrayLevel={this.state.arrayLevel}
+          items={this.state.items}
+          handleEditClickCancel={this.handleEditClickCancel}
+          handleEditInputChange={this.handleEditInputChange}
+          handleEditSelectChange={this.handleEditSelectChange}
+          handleEditClickSubmit={this.handleEditClickSubmit}
+          handleShowAlert={this.handleShowAlert}
+          handleEditItem={this.handleEditItem}
+        ></ListWithLoading>
       </div>
     );
   }
@@ -342,7 +268,6 @@ function mapStateToProps(state) {
   };
 }
 
-const WrappedProduct = withContainer(Product);
 const mapDispatchToProps = dispatch => {
   return {
     getProductList: () => {
@@ -363,4 +288,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WrappedProduct);
+)(Product);

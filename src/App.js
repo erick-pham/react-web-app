@@ -9,7 +9,7 @@ import ErrorBoundary from './helpers/errorBoundary';
 const DefaultLayout = lazy(() => import('./views/DefaultLayout'));
 const Admin = lazy(() => import('./views/Admin'));
 const Login = lazy(() => import('./views/Pages/Login'));
-const GForm = lazy(() => import('./views/Pages/GoogleForm/'));
+const GForm = lazy(() => import('./views/Pages/GoogleForm'));
 const Profile = lazy(() => import('./views/Pages/Profile'));
 const Register = lazy(() => import('./views/Pages/Register'));
 const Page404 = lazy(() => import('./views/Pages/Page404'));
@@ -26,7 +26,7 @@ class App extends Component {
               <PrivateRoute path='/profile' name='Profile' component={Profile} token={this.props.token} />
               <PrivateRoute path='/admin' name='Admin Page' component={Admin} token={this.props.token} />
               <Route exact path="/" name="Home Page" component={DefaultLayout} />
-              <Route exact path="/gform" name="Login Page" component={GForm} />
+              <Route exact path="/gform" name="GForm Page" component={GForm} />
               <Route exact path="/login" name="Login Page" component={Login} />
               <Route exact path="/register" name="Register Page" component={Register} />
               <Route exact path="/404" name="Page 404" component={Page404} />
