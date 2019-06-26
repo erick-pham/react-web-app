@@ -4,31 +4,68 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      emailError: 'Please fill out this field.',
-      password: '',
-      passwordError: 'Please fill out this field.',
-      repeatPassword: '',
-      repeatPasswordError: 'Please fill out this field.',
+      email: 'abc@gmail.com',
+      emailError: '',
+      password: '123456',
+      passwordError: '',
+      repeatPassword: '123456',
+      repeatPasswordError: '',
       isCheck: false,
       isCheckError: 'Check this checkbox to continue.'
     };
   }
+
   handleClickRegister(event) {
     event.preventDefault();
-    this.setState({
-      emailError: 'aaaaaaaaaaaaaaa',
-      passwordError: '',
-      repeatPasswordError: ''
-    });
+    let { password, repeatPassword } = this.state;
+    let emailError = '';
+    let passwordError = '';
+    let repeatPasswordError = '';
 
-    this.inputEmail.setAttribute('class', 'form-control is-invalid');
-    this.inputPassword.setAttribute('class', 'form-control is-valid');
-    this.inputRepeatPassword.setAttribute('class', 'form-control is-valid');
+
+    if (!password || password.length < 6) {
+      passwordError = 'Password must be at least 6 characters';
+      // this.inputPassword.setAttribute('class', 'form-control is-valid');
+    }
+
+    if (password !== repeatPassword) {
+      repeatPasswordError = 'Password and repeat password do not match.';
+    }
+
+    if (passwordError) {
+      this.inputPassword.setAttribute('class', 'form-control is-invalid');
+    } else {
+      this.inputPassword.setAttribute('class', 'form-control is-valid');
+    }
+
+    if (repeatPasswordError) {
+      this.inputRepeatPassword.setAttribute('class', 'form-control is-invalid');
+    } else {
+      this.inputRepeatPassword.setAttribute('class', 'form-control is-valid');
+    }
+
+    this.setState({ emailError, passwordError, repeatPasswordError });
+
     // console.log(this.inputEmailGroup);
   }
 
-  handleChangeInputEmail() {
+  handleChangeInputEmail(event) {
+    this.setState({
+      email: event.target.value.toLowerCase()
+    });
+  }
+
+  handleChangeInputPasword(event) {
+    this.setState({
+      password: event.target.value.toLowerCase()
+    });
+
+  }
+
+  handleChangeInputRepeatPasword(event) {
+    this.setState({
+      repeatPassword: event.target.value.toLowerCase()
+    });
 
   }
   render() {
@@ -50,8 +87,8 @@ export default class Register extends Component {
                       placeholder="abc@gmail.com"
                       required
                       autoFocus
-                    //value={this.state.email}
-                    // onChange={this.handleChangeInputEmail} 
+                      value={this.state.email}
+                      onChange={this.handleChangeInputEmail.bind(this)}
                     />
                     <div className="valid-feedback">Valid.</div>
                     <div className="invalid-feedback">{this.state.emailError}</div>
@@ -66,8 +103,8 @@ export default class Register extends Component {
                       className="form-control"
                       placeholder="Password"
                       required
-                    // value={this.state.password}
-                    //onChange={this.handleChangeInputPasword} 
+                      value={this.state.password}
+                      onChange={this.handleChangeInputPasword.bind(this)}
                     />
                     <div className="valid-feedback">Valid.</div>
                     <div className="invalid-feedback">{this.state.passwordError}</div>
@@ -81,8 +118,8 @@ export default class Register extends Component {
                       className="form-control"
                       placeholder="Repeat Password"
                       required
-                    //value={this.state.repeatPassword}
-                    //onChange={this.handleChangeInputPasword} 
+                      value={this.state.repeatPassword}
+                      onChange={this.handleChangeInputRepeatPasword.bind(this)}
                     />
                     <div className="valid-feedback">Valid.</div>
                     <div className="invalid-feedback">{this.state.repeatPasswordError}</div>

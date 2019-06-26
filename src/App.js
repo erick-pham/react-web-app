@@ -16,7 +16,7 @@ const Page404 = lazy(() => import('./views/Pages/Page404'));
 const Page500 = lazy(() => import('./views/Pages/Page500'));
 
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <ErrorBoundary>
