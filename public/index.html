@@ -33,6 +33,8 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
+
+
   <div id="root"></div>
   <!--
       This HTML file is a template.
@@ -44,6 +46,145 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <a href="#" onclick="signOut();">Sign out</a>
+  <a href="#" onclick="signIn();">Sign in</a>
 </body>
+
+<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+<!-- <meta name="google-signin-client_id" content="226028476132-dpf5m5lmjl1f8ma12oe1c3f3tqk5aloq.apps.googleusercontent.com"> -->
+
+<script>
+  var auth2; // The Sign-In object.
+  var googleUser; // The current user.
+  window.onLoadCallback = function () {
+    gapi.load('auth2', initSigninV2);
+    // gapi.load('auth2', function () {
+    //   auth2 = gapi.auth2.init({
+    //     client_id: '226028476132-dpf5m5lmjl1f8ma12oe1c3f3tqk5aloq.apps.googleusercontent.com',
+    //     fetch_basic_profile: true,
+    //     scope: 'profile'
+    //   });
+
+    //   // // Sign the user in, and then retrieve their ID.
+    //   // auth2.signIn().then(function () {
+    //   //   console.log('aa', auth2.currentUser.get().getId());
+    //   // });
+
+    //   console.log('aa', auth2.isSignedIn.get());
+    //   if (auth2.isSignedIn.get() != false) {
+    //     var profile = auth2.currentUser.get().getBasicProfile();
+    //     console.log('ID: ' + profile.getId());
+    //     console.log('Full Name: ' + profile.getName());
+    //     console.log('Given Name: ' + profile.getGivenName());
+    //     console.log('Family Name: ' + profile.getFamilyName());
+    //     console.log('Image URL: ' + profile.getImageUrl());
+    //     console.log('Email: ' + profile.getEmail());
+    //   }
+    // });
+
+
+  }
+
+  // function onSignIn(googleUser) {
+  //   var profile = googleUser.getBasicProfile();
+  //   var id_token = googleUser.getAuthResponse().id_token;
+  //   console.log('Token: ' + id_token); // Do not send to your backend! Use an ID token instead.
+  //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  //   console.log('Name: ' + profile.getName());
+  //   console.log('Image URL: ' + profile.getImageUrl());
+  //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  // }
+
+
+  function signIn() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    console.log('gg', auth2.currentUser.get().getId());
+    auth2.signIn().then(function () {
+      console.log('bbb', auth2.currentUser.get().getId());
+    });
+  }
+
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    console.log('ggg', auth2.currentUser.get().getId());
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
+  var initSigninV2 = function () {
+    auth2 = gapi.auth2.init({
+      client_id: '226028476132-dpf5m5lmjl1f8ma12oe1c3f3tqk5aloq.apps.googleusercontent.com',
+      fetch_basic_profile: true,
+      scope: 'profile'
+    });
+
+    // Listen for sign-in state changes.
+    auth2.isSignedIn.listen(signinChanged);
+
+    // Listen for changes to current user.
+    auth2.currentUser.listen(userChanged);
+
+    // Sign in the user if they are currently signed in.
+    if (auth2.isSignedIn.get() == true) {
+      auth2.signIn();
+    }
+
+    // Start with the current live values.
+    refreshValues();
+  };
+
+
+  /**
+   * Listener method for sign-out live value.
+   *
+   * @param {boolean} val the updated signed out state.
+   */
+  var signinChanged = function (val) {
+    console.log('Signin state changed to ', val);
+    console.log("usigned-in-cel", val);
+  };
+
+
+  /**
+   * Listener method for when the user changes.
+   *
+   * @param {GoogleUser} user the updated user.
+   */
+  var userChanged = function (user) {
+    console.log('User now: ', user);
+    googleUser = user;
+    updateGoogleUser();
+    console.log("curr-user-cell", JSON.stringify(user, undefined, 2));
+  };
+
+
+  /**
+   * Updates the properties in the Google User table using the current user.
+   */
+  var updateGoogleUser = function () {
+    if (googleUser) {
+      console.log("user-id", googleUser.getId());
+      console.log("user-response", JSON.stringify(googleUser.getAuthResponse(), undefined, 2));
+    }
+  };
+
+
+  /**
+   * Retrieves the current user and signed in states from the GoogleAuth
+   * object.
+   */
+  var refreshValues = function () {
+    if (auth2) {
+      console.log('Refreshing values...');
+
+      googleUser = auth2.currentUser.get();
+      console.log("curr-user-cell", JSON.stringify(googleUser, undefined, 2));
+      console.log("signed-in-cell", auth2.isSignedIn.get());
+      updateGoogleUser();
+    }
+  }
+</script>
 
 </html>
