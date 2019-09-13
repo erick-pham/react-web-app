@@ -23,11 +23,24 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/stylesheet.css">
+  <link rel="stylesheet" href="./assets/css/responsive.css">
+  <link href="./assets/js/owl-carousel/owl.carousel.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="./assets/js/owl-carousel/owl.transitions.css" type="text/css" rel="stylesheet" media="screen" />
+
   <!-- jQuery library -->
   <script src="./assets/js/jquery-3.4.1.min.js"></script>
   <script src="./assets/js/popper.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="./assets/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="./assets/js/template_js/jstree.min.js"></script>
+  <script type="text/javascript" src="./assets/js/template_js/template.js"></script>
+  <script type="text/javascript" src="./assets/js/common.js"></script>
+  <script type="text/javascript" src="./assets/js/global.js"></script>
+  <script type="text/javascript" src="./assets/js/owl-carousel/owl.carousel.min.js"></script>
+
   <title>%REACT_APP_WEBSITE_NAME%</title>
 </head>
 
@@ -46,56 +59,20 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
   <a href="#" onclick="signOut();">Sign out</a>
-  <a href="#" onclick="signIn();">Sign in</a>
+  <a href="#" onclick="signIn();">Sign in</a> -->
 </body>
 
-<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+<!-- <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script> -->
 <!-- <meta name="google-signin-client_id" content="226028476132-dpf5m5lmjl1f8ma12oe1c3f3tqk5aloq.apps.googleusercontent.com"> -->
 
-<script>
+<!-- <script>
   var auth2; // The Sign-In object.
   var googleUser; // The current user.
   window.onLoadCallback = function () {
     gapi.load('auth2', initSigninV2);
-    // gapi.load('auth2', function () {
-    //   auth2 = gapi.auth2.init({
-    //     client_id: '226028476132-dpf5m5lmjl1f8ma12oe1c3f3tqk5aloq.apps.googleusercontent.com',
-    //     fetch_basic_profile: true,
-    //     scope: 'profile'
-    //   });
-
-    //   // // Sign the user in, and then retrieve their ID.
-    //   // auth2.signIn().then(function () {
-    //   //   console.log('aa', auth2.currentUser.get().getId());
-    //   // });
-
-    //   console.log('aa', auth2.isSignedIn.get());
-    //   if (auth2.isSignedIn.get() != false) {
-    //     var profile = auth2.currentUser.get().getBasicProfile();
-    //     console.log('ID: ' + profile.getId());
-    //     console.log('Full Name: ' + profile.getName());
-    //     console.log('Given Name: ' + profile.getGivenName());
-    //     console.log('Family Name: ' + profile.getFamilyName());
-    //     console.log('Image URL: ' + profile.getImageUrl());
-    //     console.log('Email: ' + profile.getEmail());
-    //   }
-    // });
-
-
   }
-
-  // function onSignIn(googleUser) {
-  //   var profile = googleUser.getBasicProfile();
-  //   var id_token = googleUser.getAuthResponse().id_token;
-  //   console.log('Token: ' + id_token); // Do not send to your backend! Use an ID token instead.
-  //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  //   console.log('Name: ' + profile.getName());
-  //   console.log('Image URL: ' + profile.getImageUrl());
-  //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  // }
-
 
   function signIn() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -185,6 +162,6 @@
       updateGoogleUser();
     }
   }
-</script>
+</script> -->
 
 </html>

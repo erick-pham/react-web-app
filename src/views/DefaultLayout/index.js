@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 //import { connect } from 'react-redux';
-import Header from './Header';
-import Footer from './Footer';
-import Product from '../components/Product/Product';
+import Header from "../components/Header";
+import Footer from "./Footer";
+import Product from "../components/Product/Product";
 
 export default class Home extends Component {
   render() {
     return (
-      <div className='app'>
-        <div className='app-header'>
+      <div className="app">
+        <div className="app-header">
           <Header />
         </div>
-        <div className='app-body'>
-          <article className='left-bar'>
-          </article>
-          <section className='main-content container-fluid'>
-
+        <div className="app-body">
+          <article className="left-bar"></article>
+          <section className="main-content container-fluid">
             <Product />
           </section>
-          <article className='right-bar'>
-          </article>
+          <article className="right-bar"></article>
         </div>
-        <div className='app-header'>
+        <div className="app-header">
           <Footer />
         </div>
       </div>
